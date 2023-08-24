@@ -6,19 +6,7 @@ const ul = document.querySelector("#list");
 const people = ["william", "laura", "simone", "davids"];
 
 // handlers
-function addItem(event) {
-  event.preventDefault();
-
-  if (!isInput()) {
-    alert("Enter a name.");
-    return;
-  }
-
-  const name = isInput();
-  console.log(name);
-}
-
-function displayOnDOM(event) {
+function displayOnDOM() {
   ul.innerHTML = "";
   people.forEach((person, index) => {
     const li = document.createElement("li");
@@ -39,11 +27,25 @@ function displayOnDOM(event) {
   });
 }
 
+function addToList(event) {
+  event.preventDefault();
+
+  const name = isInput();
+  input.value = "";
+  if (!name) {
+    alert("please enter a name");
+    return;
+  }
+  people.push(name);
+
+  displayOnDOM();
+}
+
 // action functions
 function isInput() {
-  input.value.trim() === "" ? false : input.value.trim().toLowerCase();
+  return input.value.trim() === "" ? false : input.value.trim().toLowerCase();
 }
 
 // event listeners
-submit.addEventListener("click", addItem);
+submit.addEventListener("click", addToList);
 document.addEventListener("DOMContentLoaded", displayOnDOM);
