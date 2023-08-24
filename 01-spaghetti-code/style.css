@@ -73,7 +73,7 @@ button:hover {
 
 /* list */
 
-.list {
+#list {
   margin: 20px auto;
 
   display: grid;
