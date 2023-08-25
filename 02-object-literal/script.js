@@ -40,8 +40,10 @@ const peopleAdder = {
 
     this.button.addEventListener("click", this.addToList.bind(this));
     this.input.addEventListener("keypress", this.checkKeypress.bind(this));
+    this.ul.addEventListener("click", this.deleteItem.bind(this));
   },
 
+  // handler functions
   addToList: function (event) {
     event.preventDefault();
 
@@ -56,16 +58,27 @@ const peopleAdder = {
     this.render();
   },
 
-  isInput: function () {
-    return this.input.value.trim() === ""
-      ? false
-      : this.input.value.trim().toLowerCase();
-  },
-
   checkKeypress: function (event) {
     if (event.key === "Enter") {
       this.addToList(event);
     }
+  },
+
+  deleteItem: function (event) {
+    if (!event.target.classList.contains("delete")) {
+      return;
+    }
+    const index = event.target.parentElement;
+    this.people.splice(index, 1);
+
+    this.render();
+  },
+
+  // support functions
+  isInput: function () {
+    return this.input.value.trim() === ""
+      ? false
+      : this.input.value.trim().toLowerCase();
   },
 };
 
