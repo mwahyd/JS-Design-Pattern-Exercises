@@ -1,4 +1,4 @@
-// ? Prototypal inheritance pattern using OBJECTS
+// ? Prototypal inheritance (Object OOP) pattern using {OBJECTS}
 
 const adder = {
   people: ["kate", "amber", "brick", "chester"],
@@ -20,8 +20,25 @@ rootFuncs.bindEvents = function () {
 // handler functions
 const handlerFuncs = Object.create(rootFuncs); // inherits proto of root funcs
 handlerFuncs.addToList = function (event) {
-  console.log(event.target);
   event.preventDefault();
 
   const name = this.isInput();
+  this.input.value = "";
+  if (!name) {
+    alert("input field cannot be empty");
+    return;
+  }
+  this.people.push(name);
 };
+
+handlerFuncs.isInput = function () {
+  return this.input.value.trim() === ""
+    ? false
+    : this.input.value.trim().toLowerCase();
+};
+
+const init = Object.create(handlerFuncs); // inherits proto of handlerFuncs
+init.cacheDOM();
+init.bindEvents();
+
+console.dir(init);
