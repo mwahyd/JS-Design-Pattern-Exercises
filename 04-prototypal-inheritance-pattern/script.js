@@ -16,3 +16,12 @@ rootFuncs.cacheDOM = function () {
 rootFuncs.bindEvents = function () {
   this.button.addEventListener("click", this.addToList.bind(this));
 };
+
+// handler functions
+const handlerFuncs = Object.create(rootFuncs); // inherits proto of root funcs
+handlerFuncs.addToList = function (event) {
+  console.log(event.target);
+  event.preventDefault();
+
+  const name = this.isInput();
+};
