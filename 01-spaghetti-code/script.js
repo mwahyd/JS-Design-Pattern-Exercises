@@ -41,6 +41,22 @@ function addToList(event) {
   displayOnDOM();
 }
 
+function checkKeyPress(event) {
+  if (event.key === "Enter") {
+    addToList(event);
+  }
+}
+
+function deleteItem(event) {
+  if (!event.target.classList.contains("delete")) {
+    return;
+  }
+  const index = event.target.parentElement.getAttribute("data-index");
+  people.splice(index, 1);
+
+  displayOnDOM();
+}
+
 // action functions
 function isInput() {
   return input.value.trim() === "" ? false : input.value.trim().toLowerCase();
@@ -48,4 +64,6 @@ function isInput() {
 
 // event listeners
 submit.addEventListener("click", addToList);
+input.addEventListener("keypress", checkKeyPress);
 document.addEventListener("DOMContentLoaded", displayOnDOM);
+ul.addEventListener("click", deleteItem);
