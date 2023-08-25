@@ -15,6 +15,27 @@ rootFuncs.cacheDOM = function () {
 
 rootFuncs.bindEvents = function () {
   this.button.addEventListener("click", this.addToList.bind(this));
+  this.input.addEventListener("keypress", this.checkKeypress.bind(this));
+};
+
+rootFuncs.render = function () {
+  this.ul.innerHTML = "";
+  this.people.forEach((person, index) => {
+    const li = document.createElement("li");
+    const name = document.createElement("span");
+    const del = document.createElement("span");
+
+    li.setAttribute("data-index", index);
+    del.classList.add("delete");
+
+    name.textContent = person;
+    del.textContent = "X";
+
+    li.appendChild(name);
+    li.appendChild(del);
+
+    this.ul.appendChild(li);
+  });
 };
 
 // handler functions
@@ -29,6 +50,14 @@ handlerFuncs.addToList = function (event) {
     return;
   }
   this.people.push(name);
+
+  this.render();
+};
+
+handlerFuncs.checkKeypress = function (event) {
+  if (event.key === "Enter") {
+    this.addToList(event);
+  }
 };
 
 handlerFuncs.isInput = function () {
@@ -40,5 +69,6 @@ handlerFuncs.isInput = function () {
 const init = Object.create(handlerFuncs); // inherits proto of handlerFuncs
 init.cacheDOM();
 init.bindEvents();
+init.render();
 
 console.dir(init);
