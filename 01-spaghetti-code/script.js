@@ -57,6 +57,16 @@ function deleteItem(event) {
   displayOnDOM();
 }
 
+function changeBgColour(event) {
+  if (event.target.nodeName !== "LI") {
+    return;
+  }
+  const colour1 = Math.round(Math.random() * 255);
+  const colour2 = Math.round(Math.random() * 255);
+  const colour3 = Math.round(Math.random() * 255);
+  event.target.style.backgroundColor = `rgb(${colour1}, ${colour2}, ${colour3})`;
+}
+
 // action functions
 function isInput() {
   return input.value.trim() === "" ? false : input.value.trim().toLowerCase();
@@ -67,3 +77,4 @@ submit.addEventListener("click", addToList);
 input.addEventListener("keypress", checkKeyPress);
 document.addEventListener("DOMContentLoaded", displayOnDOM);
 ul.addEventListener("click", deleteItem);
+ul.addEventListener("click", changeBgColour);
