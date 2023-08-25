@@ -22,6 +22,7 @@ PeopleAdder.prototype.cacheDOM = function () {
 PeopleAdder.prototype.bindEvents = function () {
   this.button.addEventListener("click", this.addToList.bind(this));
   this.input.addEventListener("keypress", this.checkKeypress.bind(this));
+  this.ul.addEventListener("click", this.deleteItem.bind(this));
 };
 
 PeopleAdder.prototype.render = function () {
@@ -55,6 +56,15 @@ PeopleAdder.prototype.addToList = function (event) {
   }
   this.people.push(name);
 
+  this.render();
+};
+
+PeopleAdder.prototype.deleteItem = function (event) {
+  if (!event.target.classList.contains("delete")) {
+    return;
+  }
+  const index = event.target.parentElement.getAttribute("data-index");
+  this.people.splice(index, 1);
   this.render();
 };
 
