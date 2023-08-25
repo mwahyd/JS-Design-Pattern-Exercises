@@ -8,6 +8,7 @@ function PeopleAdder(...names) {
 PeopleAdder.prototype.init = function () {
   this.cacheDOM();
   this.bindEvents();
+  this.render();
 };
 
 // hander functions
@@ -23,6 +24,26 @@ PeopleAdder.prototype.bindEvents = function () {
   this.input.addEventListener("keypress", this.checkKeypress.bind(this));
 };
 
+PeopleAdder.prototype.render = function () {
+  this.ul.innerHTML = "";
+  this.people.forEach((person, index) => {
+    const li = document.createElement("li");
+    const name = document.createElement("span");
+    const del = document.createElement("span");
+
+    li.setAttribute("data-index", index);
+    del.classList.add("delete");
+
+    name.textContent = person;
+    del.textContent = "X";
+
+    li.appendChild(name);
+    li.appendChild(del);
+
+    this.ul.appendChild(li);
+  });
+};
+
 PeopleAdder.prototype.addToList = function (event) {
   event.preventDefault();
 
@@ -33,7 +54,8 @@ PeopleAdder.prototype.addToList = function (event) {
     return;
   }
   this.people.push(name);
-  console.log(this.people);
+
+  this.render();
 };
 
 // support functions
@@ -52,4 +74,3 @@ PeopleAdder.prototype.checkKeypress = function (event) {
 const people = new PeopleAdder("mandy", "arnold", "jessica", "bobby");
 
 people.init();
-console.log(people);
