@@ -23,6 +23,7 @@ PeopleAdder.prototype.bindEvents = function () {
   this.button.addEventListener("click", this.addToList.bind(this));
   this.input.addEventListener("keypress", this.checkKeypress.bind(this));
   this.ul.addEventListener("click", this.deleteItem.bind(this));
+  this.ul.addEventListener("click", this.changeBgColour.bind(this));
 };
 
 PeopleAdder.prototype.render = function () {
@@ -68,6 +69,16 @@ PeopleAdder.prototype.deleteItem = function (event) {
   this.render();
 };
 
+PeopleAdder.prototype.changeBgColour = function (event) {
+  if (event.target.nodeName !== "LI") {
+    return;
+  }
+  const colour = Math.round(Math.random() * 255);
+  const colour2 = Math.round(Math.random() * 255);
+  const colour3 = Math.round(Math.random() * 255);
+  event.target.style.backgroundColor = `rgb(${colour}, ${colour2}, ${colour3})`;
+};
+
 // support functions
 PeopleAdder.prototype.isInput = function () {
   return this.input.value.trim() === ""
@@ -82,5 +93,4 @@ PeopleAdder.prototype.checkKeypress = function (event) {
 };
 
 const people = new PeopleAdder("mandy", "arnold", "jessica", "bobby");
-
 people.init();
