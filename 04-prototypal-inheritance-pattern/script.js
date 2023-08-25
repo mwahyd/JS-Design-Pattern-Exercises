@@ -16,6 +16,7 @@ rootFuncs.cacheDOM = function () {
 rootFuncs.bindEvents = function () {
   this.button.addEventListener("click", this.addToList.bind(this));
   this.input.addEventListener("keypress", this.checkKeypress.bind(this));
+  this.ul.addEventListener("click", this.deleteItem.bind(this));
 };
 
 rootFuncs.render = function () {
@@ -54,6 +55,15 @@ handlerFuncs.addToList = function (event) {
   this.render();
 };
 
+handlerFuncs.deleteItem = function (event) {
+  if (!event.target.classList.contains("delete")) {
+    return;
+  }
+  const index = event.target.parentElement.getAttribute("data-index");
+  this.people.splice(index, 1);
+  this.render();
+};
+
 handlerFuncs.checkKeypress = function (event) {
   if (event.key === "Enter") {
     this.addToList(event);
@@ -70,5 +80,3 @@ const init = Object.create(handlerFuncs); // inherits proto of handlerFuncs
 init.cacheDOM();
 init.bindEvents();
 init.render();
-
-console.dir(init);
