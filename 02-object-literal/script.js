@@ -6,6 +6,7 @@ const peopleAdder = {
   init: function () {
     this.cacheDOM();
     this.bindEvents();
+    this.render();
     console.log("this works");
   },
 
@@ -36,11 +37,10 @@ const peopleAdder = {
   },
 
   bindEvents: function () {
-    document.addEventListener("DOMContentLoaded", this.render.bind(this));
-
     this.button.addEventListener("click", this.addToList.bind(this));
     this.input.addEventListener("keypress", this.checkKeypress.bind(this));
     this.ul.addEventListener("click", this.deleteItem.bind(this));
+    this.ul.addEventListener("click", this.changeBgColour.bind(this));
   },
 
   // handler functions
@@ -72,6 +72,16 @@ const peopleAdder = {
     this.people.splice(index, 1);
 
     this.render();
+  },
+
+  changeBgColour: function (event) {
+    if (event.target.nodeName !== "LI") {
+      return;
+    }
+    const colour = Math.round(Math.random() * 255);
+    const colour2 = Math.round(Math.random() * 255);
+    const colour3 = Math.round(Math.random() * 255);
+    event.target.style.backgroundColor = `rgb(${colour}, ${colour2}, ${colour3})`;
   },
 
   // support functions
