@@ -35,10 +35,36 @@ const peopleAdder = function (...names) {
 
   // bind events
   _button.addEventListener("click", addName);
+  _input.addEventListener("keypress", _isEnterKey);
+
+  _render();
 
   // root functions
+  function _render() {
+    _ul.innerHTML = "";
+    _people.forEach((person, index) => {
+      const li = document.createElement("li");
+      const name = document.createElement("span");
+      const del = document.createElement("span");
+
+      li.setAttribute("data-index", index);
+      del.classList.add("delete");
+      name.textContent = person;
+      del.textContent = "X";
+
+      li.appendChild(name);
+      li.appendChild(del);
+
+      _ul.appendChild(li);
+    });
+  }
 
   // private functions
+  function _isEnterKey(event) {
+    if (event.key === "Enter") {
+      addName(event);
+    }
+  }
 
   // public functions
   function addName(eventORvalue) {
@@ -54,7 +80,7 @@ const peopleAdder = function (...names) {
 
     _input.value = "";
     _people.push(name);
-    console.log(_people);
+    _render();
   }
 
   return {
