@@ -21,6 +21,8 @@ The main difference is how they are created.
 
 */
 
+// - Revealing Module Pattern
+
 const peopleAdder = (function (...names) {
   const _people = names;
 
@@ -34,6 +36,7 @@ const peopleAdder = (function (...names) {
   _button.addEventListener("click", addName);
   _input.addEventListener("keypress", _checkEnterKey);
   _ul.addEventListener("click", deleteName);
+  _ul.addEventListener("click", _changeBgColour);
 
   function _render() {
     _ul.innerHTML = "";
@@ -56,7 +59,7 @@ const peopleAdder = (function (...names) {
 
   _render();
 
-  //   handler function
+  //   public handler function
   function addName(eventORval) {
     // accept name from API call and from input field
     const name =
@@ -71,12 +74,6 @@ const peopleAdder = (function (...names) {
     _input.value = "";
     _people.push(name);
     _render();
-  }
-
-  function _checkEnterKey(event) {
-    if (event.key === "Enter") {
-      addName(event);
-    }
   }
 
   function deleteName(eventORname) {
@@ -100,6 +97,24 @@ const peopleAdder = (function (...names) {
         _render();
         break;
     }
+  }
+
+  //   private handler functions
+  function _checkEnterKey(event) {
+    if (event.key === "Enter") {
+      addName(event);
+    }
+  }
+
+  function _changeBgColour(event) {
+    if (event.target.nodeName !== "LI") {
+      return;
+    }
+    const color = Math.round(Math.random() * 255);
+    const color2 = Math.round(Math.random() * 255);
+    const color3 = Math.round(Math.random() * 255);
+
+    event.target.style.backgroundColor = `rgb(${color}, ${color2}, ${color3})`;
   }
 
   return {
