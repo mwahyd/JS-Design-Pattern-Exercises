@@ -34,6 +34,27 @@ const peopleAdder = (function (...names) {
   _button.addEventListener("click", addName);
   _input.addEventListener("keypress", _checkEnterKey);
 
+  function _render() {
+    _ul.innerHTML = "";
+    _people.forEach((person, index) => {
+      const li = document.createElement("li");
+      const name = document.createElement("span");
+      const del = document.createElement("span");
+
+      li.setAttribute("data-index", index);
+      del.classList.add("delete");
+      name.textContent = person;
+      del.textContent = "X";
+
+      li.appendChild(name);
+      li.appendChild(del);
+
+      _ul.appendChild(li);
+    });
+  }
+
+  _render();
+
   //   handler function
   function addName(eventORval) {
     // accept name from API call and from input field
@@ -47,7 +68,8 @@ const peopleAdder = (function (...names) {
       return;
     }
     _input.value = "";
-    console.log(name);
+    _people.push(name);
+    _render();
   }
 
   function _checkEnterKey(event) {
