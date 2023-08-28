@@ -36,6 +36,7 @@ const peopleAdder = function (...names) {
   // bind events
   _button.addEventListener("click", addName);
   _input.addEventListener("keypress", _isEnterKey);
+  _ul.addEventListener("click", deleteName);
 
   _render();
 
@@ -83,8 +84,25 @@ const peopleAdder = function (...names) {
     _render();
   }
 
+  function deleteName(eventORvalue) {
+    let index;
+    if (typeof eventORvalue === "string") {
+      index = _people.indexOf(eventORvalue);
+    } else {
+      if (!eventORvalue.target.classList.contains("delete")) {
+        return;
+      }
+      index = eventORvalue.target.parentElement.getAttribute("data-index");
+    }
+
+    if (index === -1) return;
+    _people.splice(index, 1);
+    _render();
+  }
+
   return {
-    addName: addName,
+    add: addName,
+    delete: deleteName,
   };
 };
 
