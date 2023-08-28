@@ -13,4 +13,4 @@ To recreate the "spagehtti code" with the following design patterns:
 - Classes / constructors (classical OOP)
 - Prototypal inheritance (prototypal OOP)
 - Factory functions
-- The module pattern
+- The module pattern (revealing module pattern - private/public)
