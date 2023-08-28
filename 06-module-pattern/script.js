@@ -33,6 +33,7 @@ const peopleAdder = (function (...names) {
   //   bind events
   _button.addEventListener("click", addName);
   _input.addEventListener("keypress", _checkEnterKey);
+  _ul.addEventListener("click", deleteName);
 
   function _render() {
     _ul.innerHTML = "";
@@ -78,7 +79,31 @@ const peopleAdder = (function (...names) {
     }
   }
 
+  function deleteName(eventORname) {
+    // -  eventORnumber is referring to the EVENT or API call value
+    switch (typeof eventORname) {
+      case "object":
+        if (!eventORname.target.classList.contains("delete")) {
+          return;
+        }
+        const li = eventORname.target.parentElement;
+        const index = li.getAttribute("data-index");
+        _people.splice(index, 1);
+        _render();
+        break;
+
+      case "string":
+        console.log(eventORname);
+        _people.includes(eventORname)
+          ? _people.splice(_people.indexOf(eventORname), 1)
+          : false;
+        _render();
+        break;
+    }
+  }
+
   return {
     addName,
+    deleteName,
   };
 })("jessie", "ash", "brock", "meowth");
