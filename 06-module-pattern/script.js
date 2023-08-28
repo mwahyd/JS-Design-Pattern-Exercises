@@ -88,11 +88,10 @@ const peopleAdder = (function (...names) {
         break;
 
       case "string":
-        index = _people.includes(eventORname)
-          ? _people.indexOf(eventORname)
-          : false;
+        index = _people.indexOf(eventORname);
         break;
     }
+    if (index === -1) return;
     _people.splice(index, 1);
     _render();
   }
