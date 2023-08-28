@@ -41,7 +41,25 @@ const peopleAdder = function (...names) {
   // private functions
 
   // public functions
-  function addName(event) {}
+  function addName(eventORvalue) {
+    const name =
+      typeof eventORvalue === "string"
+        ? eventORvalue.trim().toLowerCase()
+        : _input.value.trim().toLowerCase();
+
+    if (name === "") {
+      alert("Input field empty");
+      return;
+    }
+
+    _input.value = "";
+    _people.push(name);
+    console.log(_people);
+  }
+
+  return {
+    addName: addName,
+  };
 };
 
-console.log(peopleAdder("james", "jessie", "laurent", "cindy"));
+const people = peopleAdder("james", "jessie", "laurent", "cindy");
