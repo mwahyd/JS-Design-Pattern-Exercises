@@ -37,6 +37,7 @@ const peopleAdder = function (...names) {
   _button.addEventListener("click", addName);
   _input.addEventListener("keypress", _isEnterKey);
   _ul.addEventListener("click", deleteName);
+  _ul.addEventListener("click", _changeBgColour);
 
   _render();
 
@@ -65,6 +66,19 @@ const peopleAdder = function (...names) {
     if (event.key === "Enter") {
       addName(event);
     }
+  }
+
+  function _changeBgColour(event) {
+    const color = Math.round(Math.random() * 255);
+    const color2 = Math.round(Math.random() * 255);
+    const color3 = Math.round(Math.random() * 255);
+
+    if (event.target.nodeName !== "LI") {
+      return;
+    }
+    event.target.style.color = `rgb(${color2}, ${color3}, ${color})`;
+    event.target.style.fontWeight = "bold";
+    event.target.style.backgroundColor = `rgb(${color}, ${color2}, ${color3})`;
   }
 
   // public functions
