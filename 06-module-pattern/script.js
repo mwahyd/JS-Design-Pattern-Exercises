@@ -77,26 +77,24 @@ const peopleAdder = (function (...names) {
   }
 
   function deleteName(eventORname) {
-    // -  eventORnumber is referring to the EVENT or API call value
+    let index;
     switch (typeof eventORname) {
       case "object":
         if (!eventORname.target.classList.contains("delete")) {
           return;
         }
         const li = eventORname.target.parentElement;
-        const index = li.getAttribute("data-index");
-        _people.splice(index, 1);
-        _render();
+        index = li.getAttribute("data-index");
         break;
 
       case "string":
-        console.log(eventORname);
-        _people.includes(eventORname)
-          ? _people.splice(_people.indexOf(eventORname), 1)
+        index = _people.includes(eventORname)
+          ? _people.indexOf(eventORname)
           : false;
-        _render();
         break;
     }
+    _people.splice(index, 1);
+    _render();
   }
 
   //   private handler functions
